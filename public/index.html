@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        College Complaint Management System
+    </title>
+
+</head>
+
+
+<body>
+
+    <h1>
+        College Complaint Management System
+    </h1>
+
+    <p>
+        Week 1–5 Backend Demonstration
+    </p>
+
+
+    <hr>
+
+
+    <button onclick="checkServer()">
+        Check Server
+    </button>
+
+
+    <button onclick="checkDatabase()">
+        Check Database
+    </button>
+
+
+    <button onclick="loadComplaints()">
+        Load Complaints
+    </button>
+
+
+    <pre id="output">
+Click a button to test the system.
+    </pre>
+
+
+    <script>
+
+        const output =
+            document.getElementById("output");
+
+
+        async function checkServer() {
+
+            const response =
+                await fetch("/api/health");
+
+            const data =
+                await response.json();
+
+            output.textContent =
+                JSON.stringify(data, null, 2);
+
+        }
+
+
+        async function checkDatabase() {
+
+            const response =
+                await fetch("/api/database/test");
+
+            const data =
+                await response.json();
+
+            output.textContent =
+                JSON.stringify(data, null, 2);
+
+        }
+
+
+        async function loadComplaints() {
+
+            const response =
+                await fetch("/api/complaints");
+
+            const data =
+                await response.json();
+
+            output.textContent =
+                JSON.stringify(data, null, 2);
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
