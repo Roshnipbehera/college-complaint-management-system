@@ -3,35 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campus Grievance Redressal Portal | Official University Grievance System</title>
-    <meta name="description" content="Official university student and faculty grievance redressal portal. Real-time stage tracking, confidential triage, and verified resolution under institutional guidelines.">
+    <title>Campus Grievance Gazette | Official University Redressal Portal</title>
+    <meta name="description" content="A Swiss-inspired editorial portal for campus grievance redressal, student welfare, and transparent institutional accountability.">
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
+
+    <!-- Top Edition Bar -->
+    <div class="top-edition-bar">
+        <div class="top-edition-inner">
+            <span>Vol. IV • Official University Redressal Gazette</span>
+            <span class="date-line">Autonomous Institutional Oversight • UGC Compliant</span>
+        </div>
+    </div>
 
     <!-- Navigation Header -->
     <header class="navbar">
         <div class="nav-container">
             <a href="#" class="brand" onclick="switchTab('home')">
-                <div class="brand-icon">🏛️</div>
+                <div class="brand-monogram">cg</div>
                 <div>
-                    <div class="brand-title">Campus Grievance Portal</div>
-                    <div class="brand-subtitle">Official Student & Faculty Redressal</div>
+                    <div class="brand-title">Campus Grievance</div>
+                    <div class="brand-subtitle">Redressal & Triage System</div>
                 </div>
             </a>
 
             <nav>
                 <ul class="nav-links">
-                    <li><a href="#" class="nav-item active" data-tab="home">Home</a></li>
-                    <li><a href="#" class="nav-item" data-tab="dashboard">Grievance Feed</a></li>
+                    <li><a href="#" class="nav-item active" data-tab="home">Overview</a></li>
+                    <li><a href="#" class="nav-item" data-tab="dashboard">Grievance Records</a></li>
                     <li id="navNewComplaint" style="display:none;"><a href="#" class="nav-item" data-tab="new">File Grievance</a></li>
-                    <li id="navStaff" style="display:none;"><a href="#" class="nav-item" data-tab="dashboard" onclick="filterByStaffTriage()">Staff Triage</a></li>
+                    <li id="navStaff" style="display:none;"><a href="#" class="nav-item" data-tab="dashboard" onclick="filterByStaffTriage()">Staff Cell</a></li>
                 </ul>
             </nav>
 
             <div class="nav-actions">
-                <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Theme" onclick="toggleTheme()">☀️</button>
-                <div id="userNavSection" style="display:flex; align-items:center; gap:0.75rem">
+                <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Editorial Mode" onclick="toggleTheme()">☀️</button>
+                <div id="userNavSection" style="display:flex; align-items:center; gap:0.5rem">
                     <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
                     <button class="btn btn-primary btn-sm" onclick="openAuthModal('register')">Register</button>
                 </div>
@@ -43,232 +51,233 @@
     <main class="main-wrapper">
         
         <!-- =========================================================================
-             HOMEPAGE TAB (INSTITUTIONAL LANDING)
+             HOMEPAGE TAB (SWISS EDITORIAL FORMAT)
              ========================================================================= -->
         <section id="tab-home" class="tab-content active">
-            <!-- Hero Banner -->
-            <div class="home-hero">
-                <div class="trust-badge">
-                    <span>🛡️</span> Official Institutional Redressal System • UGC Guidelines Compliant
-                </div>
-                <h1 class="home-hero-title">Fair, Transparent & Swift Campus Grievance Redressal</h1>
+            <!-- Masthead Hero -->
+            <div class="editorial-masthead-hero">
+                <span class="hero-tag">[ Special Dispatch • Institutional Accountability ]</span>
+                <h1 class="home-hero-title">A Public Record for Campus Integrity & Student Welfare.</h1>
                 <p class="home-hero-subtitle">
-                    A centralized digital platform for university students, faculty, and administrative staff to voice academic, hostel, lab, and infrastructural concerns with automated SLA tracking and zero-retaliation protection.
+                    An auditable grievance redressal system for students, faculty, and administrative departments. Designed with modular Swiss grids, transparent triage milestones, and unconditional zero-retaliation protections.
                 </p>
 
-                <div class="hero-actions">
-                    <button class="btn btn-primary" onclick="state.user ? switchTab('new') : openAuthModal('login')">
-                        <span>＋</span> File a Grievance
-                    </button>
-                    <button class="btn btn-secondary" onclick="switchTab('dashboard')">
-                        <span>📋</span> Explore Grievance Feed
-                    </button>
-                </div>
+                <div class="editorial-hero-grid">
+                    <div>
+                        <div class="hero-actions">
+                            <button class="btn btn-primary" onclick="state.user ? switchTab('new') : openAuthModal('login')">
+                                File a Grievance →
+                            </button>
+                            <button class="btn btn-secondary" onclick="switchTab('dashboard')">
+                                Inspect Public Records
+                            </button>
+                        </div>
 
-                <!-- Instant Quick Tracker on Homepage -->
-                <form class="hero-tracker" onsubmit="handleQuickTrack(event)">
-                    <span style="font-size:1.1rem; color:var(--text-muted)">🔍</span>
-                    <input type="text" id="homeQuickTrackInput" class="hero-tracker-input" placeholder="Enter Grievance Tracking Code (e.g. CMP-2026-0001)" required>
-                    <button type="submit" class="btn btn-primary btn-sm">Track Resolution</button>
-                </form>
-            </div>
+                        <!-- Minimalist Archive Query Box -->
+                        <div class="editorial-tracker-box">
+                            <span class="editorial-tracker-title">Search Archive by Reference Code</span>
+                            <form class="editorial-tracker-form" onsubmit="handleQuickTrack(event)">
+                                <input type="text" id="homeQuickTrackInput" class="editorial-tracker-input" placeholder="e.g. CMP-2026-0001" required>
+                                <button type="submit" class="btn btn-primary btn-sm">Inspect Case →</button>
+                            </form>
+                        </div>
+                    </div>
 
-            <!-- Performance Trust Metrics -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <div class="metric-icon">⚡</div>
-                    <div class="metric-value">&lt; 48 Hrs</div>
-                    <div class="metric-label">Average Triage Time</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">✅</div>
-                    <div class="metric-value">98.4%</div>
-                    <div class="metric-label">Resolution Success Rate</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">🔒</div>
-                    <div class="metric-value">100%</div>
-                    <div class="metric-label">Confidential & Protected</div>
-                </div>
-                <div class="metric-card">
-                    <div class="metric-icon">🏛️</div>
-                    <div class="metric-value">11</div>
-                    <div class="metric-label">Campus Redressal Units</div>
+                    <!-- Side Highlight / Editorial Summary -->
+                    <div style="border-left: 1px solid var(--border-color); padding-left: 1.5rem; font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                        <strong style="color: var(--text-primary); display: block; font-family: 'Fraunces', serif; font-size: 1.15rem; margin-bottom: 0.5rem;">The Proctorial Guarantee</strong>
+                        Every formal report submitted through this portal receives an immutable tracking code, an assigned faculty investigator within 48 hours, and a permanent audit trail.
+                    </div>
                 </div>
             </div>
 
-            <!-- 3-Step Guided Resolution Process -->
-            <div class="section-header">
-                <span class="section-tag">How It Works</span>
-                <h2 class="section-title">Transparent 3-Step Redressal Workflow</h2>
-                <p class="section-subtitle">Every grievance follows an auditable lifecycle from submission to verified resolution.</p>
+            <!-- Swiss Modular Metrics Row -->
+            <div class="metrics-row">
+                <div class="metric-cell">
+                    <div class="metric-number">98.4%</div>
+                    <div class="metric-title">Resolution Rate</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-number">&lt; 48h</div>
+                    <div class="metric-title">Initial Triage Window</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-number">11</div>
+                    <div class="metric-title">Campus Coverage Units</div>
+                </div>
+                <div class="metric-cell">
+                    <div class="metric-number">100%</div>
+                    <div class="metric-title">Confidentiality Guarantee</div>
+                </div>
+            </div>
+
+            <!-- The Three-Stage Inquiry Process -->
+            <div class="section-headline-group">
+                <h2 class="section-title">The Three-Stage Redressal Process</h2>
+                <span class="section-label">[ Operational Framework ]</span>
             </div>
 
             <div class="process-grid">
-                <div class="process-card">
-                    <div class="process-step-num">1</div>
-                    <h3 class="process-card-title">Register Your Grievance</h3>
-                    <p class="process-card-desc">
-                        Select the relevant department category (Academics, Hostel, Labs, Library, etc.), describe the issue clearly, and set the urgency priority.
+                <div class="process-column">
+                    <div class="process-index">[ 01 ]</div>
+                    <h3 class="process-heading">Formal Registration</h3>
+                    <p class="process-text">
+                        The student selects the exact department unit, defines priority, and documents the incident with date, location, and factual context.
                     </p>
                 </div>
-                <div class="process-card">
-                    <div class="process-step-num">2</div>
-                    <h3 class="process-card-title">Department Triage & Inquiry</h3>
-                    <p class="process-card-desc">
-                        Your grievance is routed directly to the designated faculty supervisor or facility warden within 24 hours for official on-ground inspection.
+                <div class="process-column">
+                    <div class="process-index">[ 02 ]</div>
+                    <h3 class="process-heading">Departmental Inquiry</h3>
+                    <p class="process-text">
+                        The grievance is routed directly to the designated faculty supervisor or facility warden for on-site inspection and investigation.
                     </p>
                 </div>
-                <div class="process-card">
-                    <div class="process-step-num">3</div>
-                    <h3 class="process-card-title">Verified Resolution & Receipt</h3>
-                    <p class="process-card-desc">
-                        Receive live status updates, participate in threaded resolution discussions, and download an official institutional receipt.
+                <div class="process-column">
+                    <div class="process-index">[ 03 ]</div>
+                    <h3 class="process-heading">Verified Resolution</h3>
+                    <p class="process-text">
+                        Corrective action is documented in an audit log, comments are opened for review, and an official printable receipt is generated.
                     </p>
                 </div>
             </div>
 
-            <!-- Emergency Helpline Banner -->
-            <div class="helpline-card">
-                <div class="helpline-content">
-                    <h3>🚨 24x7 Anti-Ragging & Emergency Support</h3>
+            <!-- Emergency Broadside Notice -->
+            <div class="broadside-alert">
+                <div>
+                    <h4>🚨 24x7 Anti-Ragging & Emergency Proctorial Line</h4>
                     <p>
-                        Our institution enforces a strict zero-tolerance policy against ragging, harassment, and campus safety hazards. Emergency grievances are prioritized immediately.
+                        The university enforces an uncompromising zero-tolerance policy regarding harassment, ragging, or physical safety hazards. Emergency dispatches trigger instant proctorial escalation.
                     </p>
                 </div>
-                <div class="helpline-contacts">
-                    <button class="btn btn-secondary btn-sm" onclick="alert('National Anti-Ragging Toll Free Helpline: 1800-180-5522\nCampus Proctorial Board: +91 98765-43210')">
-                        📞 Emergency Hotline: 1800-180-5522
+                <div style="display:flex; gap:0.5rem; flex-wrap:wrap">
+                    <button class="btn btn-secondary btn-sm" onclick="alert('National Anti-Ragging Helpline (Toll Free): 1800-180-5522\nUniversity Proctorial Desk: +91 98765-43210')">
+                        National Helpline: 1800-180-5522
                     </button>
-                    <button class="btn btn-primary btn-sm" onclick="alert('Dean of Student Affairs: dean.studentwelfare@college.edu\nChief Warden: warden@college.edu')">
-                        ✉️ Contact Proctorial Board
+                    <button class="btn btn-primary btn-sm" onclick="alert('Proctorial Board: proctor@college.edu\nDean of Student Welfare: dean.welfare@college.edu')">
+                        Contact Proctorial Board →
                     </button>
                 </div>
             </div>
 
-            <!-- Department Channels Directory -->
-            <div class="section-header">
-                <span class="section-tag">Campus Departments</span>
-                <h2 class="section-title">Grievance Redressal Channels</h2>
-                <p class="section-subtitle">Direct your inquiry to the responsible administrative or academic division.</p>
+            <!-- Department Channels Directory (Magazine Style) -->
+            <div class="section-headline-group">
+                <h2 class="section-title">Campus Redressal Units</h2>
+                <span class="section-label">[ Browse by Domain ]</span>
             </div>
 
             <div class="channels-grid">
                 <div class="channel-card" onclick="filterByCategoryName('Academic')">
-                    <div class="channel-icon">📚</div>
-                    <div>
-                        <div class="channel-name">Academics & Faculty</div>
-                        <div class="channel-desc">Curriculum issues, lecture schedules, examination discrepancies, and faculty guidance.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 01</span>
+                        <span style="font-size:1.1rem">📚</span>
                     </div>
+                    <h3 class="channel-card-title">Academic & Faculty</h3>
+                    <p class="channel-card-desc">Curriculum coordination, grade inquiries, examination timetables, and lecture schedules.</p>
                 </div>
+
                 <div class="channel-card" onclick="filterByCategoryName('Hostel')">
-                    <div class="channel-icon">🏢</div>
-                    <div>
-                        <div class="channel-name">Hostel & Residential</div>
-                        <div class="channel-desc">Room allocation, mess food quality, water supply, and residential maintenance.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 02</span>
+                        <span style="font-size:1.1rem">🏢</span>
                     </div>
+                    <h3 class="channel-card-title">Hostel & Living Quarters</h3>
+                    <p class="channel-card-desc">Room allocations, mess food standards, water utilities, and residential maintenance.</p>
                 </div>
+
                 <div class="channel-card" onclick="filterByCategoryName('Laboratory')">
-                    <div class="channel-icon">🔬</div>
-                    <div>
-                        <div class="channel-name">Laboratories & Equipment</div>
-                        <div class="channel-desc">Instruments, computer systems, workshop safety, and consumable stock.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 03</span>
+                        <span style="font-size:1.1rem">🔬</span>
                     </div>
+                    <h3 class="channel-card-title">Laboratories & Apparatus</h3>
+                    <p class="channel-card-desc">Scientific equipment, computing clusters, workshop tooling, and chemical safety.</p>
                 </div>
+
                 <div class="channel-card" onclick="filterByCategoryName('Infrastructure')">
-                    <div class="channel-icon">⚡</div>
-                    <div>
-                        <div class="channel-name">Campus Infrastructure</div>
-                        <div class="channel-desc">Classroom furniture, electricity, air conditioning, and physical estate repairs.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 04</span>
+                        <span style="font-size:1.1rem">⚡</span>
                     </div>
+                    <h3 class="channel-card-title">Estate & Infrastructure</h3>
+                    <p class="channel-card-desc">Power supply, classroom climate control, physical repairs, and campus sanitation.</p>
                 </div>
+
                 <div class="channel-card" onclick="filterByCategoryName('Library')">
-                    <div class="channel-icon">📖</div>
-                    <div>
-                        <div class="channel-name">Central Library</div>
-                        <div class="channel-desc">Book borrowing, digital journal access, study rooms, and RFID card issuance.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 05</span>
+                        <span style="font-size:1.1rem">📖</span>
                     </div>
+                    <h3 class="channel-card-title">Central Library</h3>
+                    <p class="channel-card-desc">Reference archives, digital journal access, study room booking, and book borrowing.</p>
                 </div>
+
                 <div class="channel-card" onclick="filterByCategoryName('Administration')">
-                    <div class="channel-icon">🤝</div>
-                    <div>
-                        <div class="channel-name">Student Affairs & Fees</div>
-                        <div class="channel-desc">Scholarships, administrative certificates, fee inquiries, and extracurriculars.</div>
+                    <div class="channel-header">
+                        <span class="channel-category-tag">Domain 06</span>
+                        <span style="font-size:1.1rem">🤝</span>
                     </div>
+                    <h3 class="channel-card-title">Student Welfare & Fees</h3>
+                    <p class="channel-card-desc">Scholarships, administrative certificates, fee statements, and extracurricular activities.</p>
                 </div>
             </div>
         </section>
 
         <!-- =========================================================================
-             DASHBOARD TAB (GRIEVANCE FEED & TRIAGE)
+             DASHBOARD TAB (GRIEVANCE ARCHIVE)
              ========================================================================= -->
         <section id="tab-dashboard" class="tab-content">
-            <!-- Hero Header -->
-            <div class="hero-header">
+            <div class="dashboard-header">
                 <div>
-                    <h1 class="hero-title">Campus Grievance Feed</h1>
-                    <p class="hero-subtitle">Real-time repository of reported issues, triage milestones, and resolution outcomes.</p>
+                    <h1 class="dashboard-title">Campus Grievance Archive</h1>
+                    <p class="dashboard-subtitle">A live record of reported concerns, active investigations, and verified resolutions.</p>
                 </div>
-                <div style="display:flex; gap:0.75rem; flex-wrap:wrap">
-                    <button class="btn btn-secondary" onclick="loadComplaints()" title="Reload latest complaints">
-                        <span>🔄</span> Refresh
+                <div style="display:flex; gap:0.5rem">
+                    <button class="btn btn-secondary btn-sm" onclick="loadComplaints()" title="Reload records">
+                        🔄 Refresh Archive
                     </button>
-                    <button class="btn btn-primary" onclick="state.user ? switchTab('new') : openAuthModal('login')">
-                        <span>＋</span> File Grievance
+                    <button class="btn btn-primary btn-sm" onclick="state.user ? switchTab('new') : openAuthModal('login')">
+                        ＋ File a Grievance
                     </button>
                 </div>
             </div>
 
-            <!-- Instant Complaint Tracker Banner -->
-            <div class="tracking-banner">
-                <div class="tracking-info">
-                    <h4>⚡ Track Grievance Status Instantly</h4>
-                    <p>Enter your reference tracking code (e.g. <code>CMP-2026-0001</code>) to inspect live progress.</p>
-                </div>
-                <form class="tracking-form" onsubmit="handleQuickTrack(event)">
-                    <input type="text" id="quickTrackInput" class="tracking-input" placeholder="CMP-YYYY-XXXX" required>
-                    <button type="submit" class="btn btn-primary btn-sm">Track</button>
-                </form>
-            </div>
-
-            <!-- Stats Row -->
+            <!-- Stats Ticker -->
             <div class="stats-grid">
                 <div class="stat-card">
-                    <div class="stat-icon total">📋</div>
                     <div>
                         <div class="stat-value" id="statTotal">0</div>
-                        <div class="stat-label">Total Grievances</div>
+                        <div class="stat-label">Total Logged</div>
                     </div>
+                    <div class="stat-icon">📋</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon pending">⏳</div>
                     <div>
                         <div class="stat-value" id="statPending">0</div>
-                        <div class="stat-label">Submitted / Pending</div>
+                        <div class="stat-label">Pending / Review</div>
                     </div>
+                    <div class="stat-icon">⏳</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon progress">⚙️</div>
                     <div>
                         <div class="stat-value" id="statProgress">0</div>
-                        <div class="stat-label">In Progress / Assigned</div>
+                        <div class="stat-label">In Active Inquiry</div>
                     </div>
+                    <div class="stat-icon">⚙️</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-icon resolved">✅</div>
                     <div>
                         <div class="stat-value" id="statResolved">0</div>
-                        <div class="stat-label">Resolved / Closed</div>
+                        <div class="stat-label">Verified Resolved</div>
                     </div>
+                    <div class="stat-icon">✅</div>
                 </div>
             </div>
 
-            <!-- Search & Filters Control Bar with Quick Status Pills -->
+            <!-- Controls Filter Bar -->
             <div class="controls-bar">
                 <div class="controls-row-top">
                     <div class="search-box">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="searchInput" class="search-input" placeholder="Search by title, description or code...">
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search archive by keyword, room, or reference code...">
                     </div>
 
                     <div class="filters-group">
@@ -299,15 +308,18 @@
 
                 <!-- Status Filter Pills -->
                 <div class="filter-pills-bar" id="statusPillsBar">
-                    <button type="button" class="pill-btn active" onclick="handlePillFilter('')">All Grievances</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('SUBMITTED')">⏳ Submitted</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('UNDER_REVIEW')">🔍 Under Review</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('ASSIGNED')">👨‍💼 Assigned</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('IN_PROGRESS')">⚙️ In Progress</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('RESOLVED')">✅ Resolved</button>
-                    <button type="button" class="pill-btn" onclick="handlePillFilter('CLOSED')">🔒 Closed</button>
+                    <button type="button" class="pill-btn active" onclick="handlePillFilter('')">All Cases</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('SUBMITTED')">Submitted</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('UNDER_REVIEW')">Under Review</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('ASSIGNED')">Assigned</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('IN_PROGRESS')">In Progress</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('RESOLVED')">Resolved</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('CLOSED')">Closed</button>
                 </div>
             </div>
+
+            <!-- Hidden Tracker Input for Compatibility -->
+            <input type="hidden" id="quickTrackInput">
 
             <!-- Complaints Feed -->
             <div id="complaintsList" class="complaints-list"></div>
@@ -317,145 +329,143 @@
              FILE GRIEVANCE TAB
              ========================================================================= -->
         <section id="tab-new" class="tab-content">
-            <div class="hero-header">
+            <div class="dashboard-header">
                 <div>
-                    <h1 class="hero-title">Submit a Grievance</h1>
-                    <p class="hero-subtitle">Describe your grievance accurately. The concern will be assigned to the appropriate faculty cell.</p>
+                    <h1 class="dashboard-title">Submit a Grievance</h1>
+                    <p class="dashboard-subtitle">Please provide accurate, verifiable details for the Proctorial Committee.</p>
                 </div>
-                <button class="btn btn-secondary" onclick="switchTab('dashboard')">← Back to Grievances</button>
+                <button class="btn btn-secondary btn-sm" onclick="switchTab('dashboard')">← Return to Records</button>
             </div>
 
-            <div style="max-width: 760px; background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-lg); padding:2.25rem;">
+            <div style="max-width: 720px; background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:2rem;">
                 <form id="newComplaintForm">
                     <div class="form-group">
-                        <label class="form-label" for="complaintTitle">Grievance Subject / Title *</label>
+                        <label class="form-label" for="complaintTitle">Case Title / Incident Subject *</label>
                         <input type="text" id="complaintTitle" class="form-control" placeholder="e.g. Non-functional air conditioning in Seminar Hall 2" required minlength="5" maxlength="200">
                     </div>
 
                     <div style="display:grid; grid-template-columns: 1fr 1fr; gap:1.25rem">
                         <div class="form-group">
-                            <label class="form-label" for="complaintCategory">Department Category *</label>
+                            <label class="form-label" for="complaintCategory">Department Domain *</label>
                             <select id="complaintCategory" class="form-control" required></select>
                         </div>
                         <div class="form-group">
-                            <label class="form-label" for="complaintPriority">Urgency Level *</label>
+                            <label class="form-label" for="complaintPriority">Urgency Priority *</label>
                             <select id="complaintPriority" class="form-control" required>
-                                <option value="LOW">🟢 Low (Routine maintenance)</option>
-                                <option value="MEDIUM" selected>🔵 Medium (Normal attention required)</option>
-                                <option value="HIGH">🟡 High (Urgent operational blocker)</option>
-                                <option value="URGENT">🔴 Urgent (Immediate safety or hazard)</option>
+                                <option value="LOW">Low (Routine maintenance)</option>
+                                <option value="MEDIUM" selected>Medium (Standard attention)</option>
+                                <option value="HIGH">High (Urgent academic blocker)</option>
+                                <option value="URGENT">Urgent (Immediate safety or hazard)</option>
                             </select>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="form-label" for="complaintDescription">Detailed Incident Description *</label>
-                        <textarea id="complaintDescription" class="form-control" placeholder="Provide full context, room or lab number, date of occurrence, or specific equipment impacted..." required minlength="10" maxlength="3000"></textarea>
+                        <label class="form-label" for="complaintDescription">Detailed Incident Narrative *</label>
+                        <textarea id="complaintDescription" class="form-control" placeholder="Provide full context: room or laboratory number, dates, equipment involved, and any prior communication..." required minlength="10" maxlength="3000"></textarea>
                     </div>
 
-                    <div style="display:flex; justify-content:flex-end; gap:1rem; margin-top:1.5rem">
+                    <div style="display:flex; justify-content:flex-end; gap:0.75rem; margin-top:1.5rem">
                         <button type="button" class="btn btn-secondary" onclick="switchTab('dashboard')">Cancel</button>
-                        <button type="submit" class="btn btn-primary">Submit Grievance</button>
+                        <button type="submit" class="btn btn-primary">File Official Report →</button>
                     </div>
                 </form>
             </div>
         </section>
 
         <!-- =========================================================================
-             DEVELOPER / EVALUATOR API REFERENCE TAB (LINKED FROM FOOTER)
+             DEVELOPER / EVALUATOR API REFERENCE TAB (LINKED IN FOOTER)
              ========================================================================= -->
         <section id="tab-docs" class="tab-content">
-            <div class="hero-header">
+            <div class="dashboard-header">
                 <div>
-                    <h1 class="hero-title">Technical API Reference</h1>
-                    <p class="hero-subtitle">REST API endpoints powering the College Grievance Management System.</p>
+                    <h1 class="dashboard-title">System API Specification</h1>
+                    <p class="dashboard-subtitle">Technical documentation for backend integration and institutional auditing.</p>
                 </div>
-                <button class="btn btn-secondary" onclick="switchTab('home')">← Back to Portal</button>
+                <button class="btn btn-secondary btn-sm" onclick="switchTab('home')">← Back to Portal</button>
             </div>
 
             <div style="display:grid; gap:1.5rem">
-                <!-- Auth Endpoints -->
-                <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:1.5rem">
-                    <h3 style="color:var(--primary); margin-bottom:1rem">🔐 Authentication Endpoints</h3>
-                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem">
+                <div style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:1.5rem">
+                    <h3 style="font-family:'Fraunces', serif; margin-bottom:1rem">Authentication Subsystem</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.86rem">
                         <thead>
                             <tr style="text-align:left; border-bottom:1px solid var(--border-color); color:var(--text-muted)">
                                 <th style="padding:0.6rem">Method</th>
                                 <th style="padding:0.6rem">Endpoint</th>
-                                <th style="padding:0.6rem">Description</th>
-                                <th style="padding:0.6rem">Access</th>
+                                <th style="padding:0.6rem">Function</th>
+                                <th style="padding:0.6rem">Scope</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/auth/register</code></td>
-                                <td style="padding:0.6rem">Registers new student with bcrypt hashed password</td>
+                                <td style="padding:0.6rem">Student account creation with bcrypt hashing</td>
                                 <td style="padding:0.6rem">Public</td>
                             </tr>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/auth/login</code></td>
-                                <td style="padding:0.6rem">Authenticates credentials, returns JWT & HTTP-only cookie</td>
+                                <td style="padding:0.6rem">Authentication issuing JWT & HTTP-only cookie</td>
                                 <td style="padding:0.6rem">Public</td>
                             </tr>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#1e3a8a; color:#60a5fa">GET</span></td>
+                                <td style="padding:0.6rem"><code>GET</code></td>
                                 <td style="padding:0.6rem"><code>/api/auth/me</code></td>
-                                <td style="padding:0.6rem">Fetches current authenticated profile & role</td>
+                                <td style="padding:0.6rem">Current session profile verification</td>
                                 <td style="padding:0.6rem">Authenticated</td>
                             </tr>
                             <tr>
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/auth/logout</code></td>
-                                <td style="padding:0.6rem">Clears HTTP-only session cookie</td>
+                                <td style="padding:0.6rem">Session revocation</td>
                                 <td style="padding:0.6rem">Authenticated</td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
 
-                <!-- Complaint Endpoints -->
-                <div style="background:var(--bg-card); border:1px solid var(--border-color); border-radius:var(--radius-md); padding:1.5rem">
-                    <h3 style="color:var(--primary); margin-bottom:1rem">📋 Complaint CRUD & Lifecycle Endpoints</h3>
-                    <table style="width:100%; border-collapse:collapse; font-size:0.9rem">
+                <div style="background:var(--bg-secondary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:1.5rem">
+                    <h3 style="font-family:'Fraunces', serif; margin-bottom:1rem">Grievance & Triage Subsystem</h3>
+                    <table style="width:100%; border-collapse:collapse; font-size:0.86rem">
                         <thead>
                             <tr style="text-align:left; border-bottom:1px solid var(--border-color); color:var(--text-muted)">
                                 <th style="padding:0.6rem">Method</th>
                                 <th style="padding:0.6rem">Endpoint</th>
-                                <th style="padding:0.6rem">Description</th>
-                                <th style="padding:0.6rem">Access</th>
+                                <th style="padding:0.6rem">Function</th>
+                                <th style="padding:0.6rem">Scope</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#1e3a8a; color:#60a5fa">GET</span></td>
+                                <td style="padding:0.6rem"><code>GET</code></td>
                                 <td style="padding:0.6rem"><code>/api/complaints</code></td>
-                                <td style="padding:0.6rem">List complaints with multi-criteria filtering</td>
-                                <td style="padding:0.6rem">Public / Authenticated</td>
+                                <td style="padding:0.6rem">Query archive with status, category, priority filters</td>
+                                <td style="padding:0.6rem">Public / Auth</td>
                             </tr>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#1e3a8a; color:#60a5fa">GET</span></td>
+                                <td style="padding:0.6rem"><code>GET</code></td>
                                 <td style="padding:0.6rem"><code>/api/complaints/:id</code></td>
-                                <td style="padding:0.6rem">Fetch single complaint by ID with full audit trail</td>
-                                <td style="padding:0.6rem">Public / Owner / Staff</td>
+                                <td style="padding:0.6rem">Full case audit, status history & comments</td>
+                                <td style="padding:0.6rem">Public / Auth</td>
                             </tr>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/complaints</code></td>
-                                <td style="padding:0.6rem">Create new complaint</td>
-                                <td style="padding:0.6rem">Student / Authenticated</td>
+                                <td style="padding:0.6rem">File new grievance record</td>
+                                <td style="padding:0.6rem">Student</td>
                             </tr>
                             <tr style="border-bottom:1px solid var(--border-subtle)">
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/complaints/:id/status</code></td>
-                                <td style="padding:0.6rem">Update lifecycle status with audit remarks</td>
+                                <td style="padding:0.6rem">Update lifecycle stage with audit remarks</td>
                                 <td style="padding:0.6rem">Staff / Admin</td>
                             </tr>
                             <tr>
-                                <td style="padding:0.6rem"><span class="badge" style="background:#065f46; color:#34d399">POST</span></td>
+                                <td style="padding:0.6rem"><code>POST</code></td>
                                 <td style="padding:0.6rem"><code>/api/complaints/:id/comments</code></td>
-                                <td style="padding:0.6rem">Add threaded reply / comment</td>
+                                <td style="padding:0.6rem">Append discussion notes to audit thread</td>
                                 <td style="padding:0.6rem">Authenticated</td>
                             </tr>
                         </tbody>
@@ -466,53 +476,53 @@
 
     </main>
 
-    <!-- Institutional Footer -->
+    <!-- Editorial Footer -->
     <footer class="site-footer">
         <div class="footer-container">
             <div class="footer-brand">
-                <h4>🏛️ Campus Grievance Redressal Portal</h4>
+                <h4>Campus Grievance Gazette</h4>
                 <p>
-                    Established under the University Grants Commission (Grievance Redressal of Students) Regulations. Providing transparent, accountable, and prompt resolution of student and faculty concerns.
+                    Published by the University Grievance Redressal Committee in accordance with UGC (Grievance Redressal of Students) Regulations. Dedicated to fair, transparent, and prompt resolution.
                 </p>
-                <div style="margin-top:1rem; font-size:0.8rem; color:var(--text-muted)">
-                    Academic Block IV, University Campus<br>
-                    Helpline: +91 1800-180-5522 | Email: grievance@college.edu
+                <div style="margin-top:1rem; font-size:0.78rem; color:var(--text-muted)">
+                    Proctorial Office, Academic Block IV<br>
+                    Helpline: 1800-180-5522 | proctor@college.edu
                 </div>
             </div>
 
             <div class="footer-column">
                 <h5>Navigation</h5>
                 <ul class="footer-links">
-                    <li><a href="#" onclick="switchTab('home')">Home Portal</a></li>
-                    <li><a href="#" onclick="switchTab('dashboard')">Grievance Feed</a></li>
-                    <li><a href="#" onclick="state.user ? switchTab('new') : openAuthModal('login')">Submit Grievance</a></li>
+                    <li><a href="#" onclick="switchTab('home')">Portal Overview</a></li>
+                    <li><a href="#" onclick="switchTab('dashboard')">Grievance Archive</a></li>
+                    <li><a href="#" onclick="state.user ? switchTab('new') : openAuthModal('login')">File Grievance</a></li>
                     <li><a href="#" onclick="openAuthModal('login')">Staff Sign In</a></li>
                 </ul>
             </div>
 
             <div class="footer-column">
-                <h5>Support & Welfare</h5>
+                <h5>Governance & Legal</h5>
                 <ul class="footer-links">
-                    <li><a href="#" onclick="alert('Anti-Ragging Committee: Dean Student Affairs (Chairperson)\nMembers: Chief Warden, Head of Security, Student Representatives.')">Anti-Ragging Cell</a></li>
-                    <li><a href="#" onclick="alert('Internal Complaints Committee (ICC) handles prevention and redressal of harassment grievances with strict confidentiality.')">Internal Complaints (ICC)</a></li>
-                    <li><a href="#" onclick="alert('Student Proctorial Office: Block A, Ground Floor.\nWalk-in hours: 10:00 AM - 4:00 PM.')">Proctorial Board</a></li>
-                    <li><a href="#" onclick="alert('Confidentiality Guarantee: All reported issues are encrypted and only accessible to authorized investigators.')">Zero-Retaliation Policy</a></li>
+                    <li><a href="#" onclick="alert('Anti-Ragging Committee: Dean Student Affairs (Chairperson)\nMembers: Chief Warden, Head of Security, Student Representatives.')">Anti-Ragging Statutes</a></li>
+                    <li><a href="#" onclick="alert('Internal Complaints Committee (ICC) oversees sexual harassment prevention and prompt redressal under zero-retaliation rules.')">Internal Complaints (ICC)</a></li>
+                    <li><a href="#" onclick="alert('Student Proctorial Office: Block A, Ground Floor.\nOffice hours: Monday - Friday, 10:00 AM - 4:00 PM.')">Proctorial Board</a></li>
+                    <li><a href="#" onclick="alert('Confidentiality: Records are encrypted and viewable only by designated university investigators.')">Zero-Retaliation Policy</a></li>
                 </ul>
             </div>
 
             <div class="footer-column">
-                <h5>System & Docs</h5>
+                <h5>System</h5>
                 <ul class="footer-links">
-                    <li><a href="#" onclick="switchTab('docs')">Technical API Specs</a></li>
-                    <li><a href="#" onclick="alert('System Version: v3.0 Enterprise\nStack: Node.js, Express, MySQL, JWT, Bcrypt, Helmet.')">System Information</a></li>
-                    <li><a href="#" onclick="toggleTheme()">Theme Toggle (Light/Dark)</a></li>
+                    <li><a href="#" onclick="switchTab('docs')">API Documentation</a></li>
+                    <li><a href="#" onclick="toggleTheme()">Theme Toggle</a></li>
+                    <li><a href="https://astro.build/themes/details/astro-mag/" target="_blank" rel="noopener">Astro Mag Aesthetic</a></li>
                 </ul>
             </div>
         </div>
 
         <div class="footer-bottom">
-            <div>© 2026 Campus Grievance Redressal Committee. Approved Institutional Portal.</div>
-            <div>All grievances protected by university privacy and anti-retaliation statutes.</div>
+            <div>© 2026 Campus Grievance Redressal Board. Swiss Editorial Architecture.</div>
+            <div>All reports recorded under university privacy and anti-retaliation statutes.</div>
         </div>
     </footer>
 
@@ -538,55 +548,55 @@
 
                     <!-- Quick Fill Demo Buttons -->
                     <div class="demo-accounts">
-                        <span style="font-size:0.75rem; color:var(--text-muted); width:100%">⚡ Quick-Fill Demo Credentials:</span>
+                        <span style="font-size:0.75rem; color:var(--text-muted); width:100%">⚡ Quick-Fill Credentials:</span>
                         <button type="button" class="demo-btn" onclick="fillDemo('student@college.com', 'Student@123')">Student</button>
                         <button type="button" class="demo-btn" onclick="fillDemo('staff@college.com', 'Staff@123')">Staff Member</button>
-                        <button type="button" class="demo-btn" onclick="fillDemo('admin@college.com', 'Admin@123')">Admin</button>
+                        <button type="button" class="demo-btn" onclick="fillDemo('admin@college.com', 'Admin@123')">Administrator</button>
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1.25rem">Sign In</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1.25rem">Sign In →</button>
                     
                     <p style="text-align:center; font-size:0.85rem; color:var(--text-secondary); margin-top:1rem">
-                        Don't have an account? <a href="#" style="color:var(--primary)" onclick="openAuthModal('register')">Register here</a>
+                        Need an account? <a href="#" style="color:var(--text-primary); font-weight:600" onclick="openAuthModal('register')">Register here</a>
                     </p>
                 </form>
 
                 <!-- Register Form -->
                 <form id="registerForm" style="display:none">
                     <div class="form-group">
-                        <label class="form-label" for="regName">Full Name</label>
-                        <input type="text" id="regName" class="form-control" placeholder="Student Full Name" required minlength="2">
+                        <label class="form-label" for="regName">Full Legal Name</label>
+                        <input type="text" id="regName" class="form-control" placeholder="e.g. Aditi Sharma" required minlength="2">
                     </div>
                     <div class="form-group">
                         <label class="form-label" for="regEmail">College Email Address</label>
                         <input type="email" id="regEmail" class="form-control" placeholder="name@college.com" required>
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="regPassword">Password (min 6 chars, letters & numbers)</label>
+                        <label class="form-label" for="regPassword">Password (letters & numbers)</label>
                         <input type="password" id="regPassword" class="form-control" placeholder="••••••••" required minlength="6">
                     </div>
                     <div class="form-group">
-                        <label class="form-label" for="regPhone">Phone Number</label>
+                        <label class="form-label" for="regPhone">Contact Phone</label>
                         <input type="tel" id="regPhone" class="form-control" placeholder="9876543210">
                     </div>
 
-                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1.25rem">Create Account</button>
+                    <button type="submit" class="btn btn-primary" style="width:100%; margin-top:1.25rem">Create Account →</button>
                     
                     <p style="text-align:center; font-size:0.85rem; color:var(--text-secondary); margin-top:1rem">
-                        Already have an account? <a href="#" style="color:var(--primary)" onclick="openAuthModal('login')">Sign in here</a>
+                        Already registered? <a href="#" style="color:var(--text-primary); font-weight:600" onclick="openAuthModal('login')">Sign in here</a>
                     </p>
                 </form>
             </div>
         </div>
     </div>
 
-    <!-- Complaint Details & Triage Modal -->
+    <!-- Case Dossier / Inspection Modal -->
     <div id="detailsModal" class="modal-overlay">
-        <div class="modal-box" style="max-width:750px">
+        <div class="modal-box" style="max-width:740px">
             <div class="modal-header">
-                <h3 class="modal-title">Grievance Inspection & Audit</h3>
+                <h3 class="modal-title">Case Dossier & Triage Audit</h3>
                 <div style="display:flex; align-items:center; gap:0.5rem">
-                    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()" title="Print Official Grievance Voucher">🖨️ Print Receipt</button>
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()" title="Print Grievance Dossier">🖨️ Print Receipt</button>
                     <button class="modal-close" onclick="closeDetailsModal()">✕</button>
                 </div>
             </div>

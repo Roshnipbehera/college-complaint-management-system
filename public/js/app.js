@@ -23,26 +23,28 @@ const state = {
 // Theme Toggle (Dark & Light Theme)
 // ==============================================================================
 function initTheme() {
-    const savedTheme = localStorage.getItem('portal_theme') || 'dark';
+    const savedTheme = localStorage.getItem('portal_theme') || 'light';
     applyTheme(savedTheme);
 }
 
 function applyTheme(theme) {
     const toggleBtn = document.getElementById('themeToggleBtn');
-    if (theme === 'light') {
-        document.body.classList.add('light-theme');
-        if (toggleBtn) toggleBtn.textContent = '🌙';
-    } else {
+    if (theme === 'dark') {
+        document.body.classList.add('dark-theme');
         document.body.classList.remove('light-theme');
         if (toggleBtn) toggleBtn.textContent = '☀️';
+    } else {
+        document.body.classList.remove('dark-theme');
+        document.body.classList.add('light-theme');
+        if (toggleBtn) toggleBtn.textContent = '🌙';
     }
     localStorage.setItem('portal_theme', theme);
 }
 
 function toggleTheme() {
-    const isLight = document.body.classList.contains('light-theme');
-    applyTheme(isLight ? 'dark' : 'light');
-    showToast(`Switched to ${isLight ? 'Dark' : 'Light'} Mode`, 'info');
+    const isDark = document.body.classList.contains('dark-theme');
+    applyTheme(isDark ? 'light' : 'dark');
+    showToast(`Switched to ${isDark ? 'Paper Light' : 'Editorial Charcoal'} Mode`, 'info');
 }
 
 // ==============================================================================
@@ -279,39 +281,38 @@ function renderComplaints() {
 
     if (state.complaints.length === 0) {
         listEl.innerHTML = `
-            <div style="text-align:center; padding: 4rem 2rem; background:var(--bg-card); border-radius:var(--radius-md); border:1px dashed var(--border-color)">
-                <div style="font-size: 2.5rem; margin-bottom: 0.5rem">📂</div>
-                <h3 style="color:var(--text-primary); margin-bottom:0.25rem">No complaints found</h3>
-                <p style="color:var(--text-muted); font-size:0.9rem">Try adjusting your filters, search keywords, or clear active pills.</p>
+            <div style="text-align:center; padding: 4rem 2rem; background:var(--bg-secondary); border-radius:var(--radius-sm); border:1px solid var(--border-color)">
+                <div style="font-family:'Fraunces', serif; font-size: 1.5rem; margin-bottom: 0.5rem; color:var(--text-primary)">No Grievance Records Found</div>
+                <p style="color:var(--text-muted); font-size:0.88rem">Try adjusting your search criteria, clearing active filters, or exploring all domains.</p>
             </div>
         `;
         return;
     }
 
     listEl.innerHTML = state.complaints.map(c => `
-        <div class="complaint-card" onclick="openDetailsModal(${c.complaint_id})">
-            <div class="card-header">
-                <div>
+        <article class="complaint-card" onclick="openDetailsModal(${c.complaint_id})">
+            <div class="card-top-meta">
+                <span class="card-category-indicator">[ ${c.category_name} ]</span>
+                <div style="display:flex; align-items:center; gap:0.5rem">
                     <span class="card-code">${c.complaint_code}</span>
-                    <h3 class="card-title">${c.title}</h3>
-                </div>
-                <div style="display:flex; gap:0.5rem; align-items:center">
-                    <span class="badge priority-${c.priority}">${c.priority}</span>
                     <span class="badge status-${c.status}">${c.status.replace('_', ' ')}</span>
                 </div>
             </div>
+            <h3 class="card-title">${c.title}</h3>
             <p class="card-description">${c.description}</p>
             <div class="card-footer">
-                <div class="meta-group">
-                    <span class="category-tag">📁 ${c.category_name}</span>
-                    <span>👤 ${c.student_name}</span>
-                    <span>🕒 ${new Date(c.created_at).toLocaleDateString()}</span>
+                <div class="card-byline">
+                    <span>Filed by: <strong>${c.student_name}</strong></span>
+                    <span>•</span>
+                    <span>${new Date(c.created_at).toLocaleDateString()}</span>
                 </div>
-                <div>
-                    ${c.assigned_staff_name ? `<span style="color:var(--primary)">👨‍💼 Assigned: ${c.assigned_staff_name}</span>` : '<span style="color:var(--text-muted)">Unassigned</span>'}
+                <div style="display:flex; align-items:center; gap:0.75rem">
+                    <span class="priority-${c.priority}">Priority: ${c.priority}</span>
+                    <span>•</span>
+                    ${c.assigned_staff_name ? `<span>Assigned: <strong>${c.assigned_staff_name}</strong></span>` : '<span style="color:var(--text-muted)">Unassigned</span>'}
                 </div>
             </div>
-        </div>
+        </article>
     `).join('');
 }
 
@@ -488,38 +489,40 @@ async function openDetailsModal(id) {
         const canDelete = isOwner && c.status === 'SUBMITTED';
 
         body.innerHTML = `
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem">
-                <div>
-                    <span class="card-code" style="font-size:0.85rem; cursor:pointer" title="Click to copy tracking code" onclick="navigator.clipboard && navigator.clipboard.writeText('${c.complaint_code}'); showToast('Tracking code copied: ${c.complaint_code}', 'success')">${c.complaint_code} 📋</span>
-                    <h2 style="margin-top:0.4rem; font-size:1.35rem; color:var(--text-primary)">${c.title}</h2>
+            <div style="border-bottom:1px solid var(--border-color); padding-bottom:1rem; margin-bottom:1.25rem">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.4rem; flex-wrap:wrap; gap:0.5rem">
+                    <span class="card-code" style="cursor:pointer" title="Click to copy tracking code" onclick="navigator.clipboard && navigator.clipboard.writeText('${c.complaint_code}'); showToast('Tracking code copied: ${c.complaint_code}', 'success')">${c.complaint_code} 📋</span>
+                    <div style="display:flex; gap:0.5rem; align-items:center">
+                        <span class="priority-${c.priority}">Priority: ${c.priority}</span>
+                        <span>•</span>
+                        <span class="badge status-${c.status}">${c.status.replace('_', ' ')}</span>
+                    </div>
                 </div>
-                <div style="display:flex; gap:0.5rem; align-items:center">
-                    <span class="badge priority-${c.priority}">${c.priority}</span>
-                    <span class="badge status-${c.status}">${c.status.replace('_', ' ')}</span>
-                </div>
+                <h2 style="font-family:'Fraunces', serif; font-size:1.6rem; color:var(--text-primary); line-height:1.2">${c.title}</h2>
             </div>
 
             <!-- Visual Stepper Progress Bar -->
             ${renderLifecycleStepper(c.status)}
 
-            <div style="background:var(--bg-glass); padding:1.15rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); margin-bottom:1.25rem">
-                <p style="font-size:0.95rem; line-height:1.65; white-space:pre-wrap; color:var(--text-primary)">${c.description}</p>
+            <div style="background:var(--bg-primary); padding:1.25rem; border-radius:var(--radius-sm); border:1px solid var(--border-color); margin-bottom:1.25rem">
+                <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--text-muted); font-weight:600; display:block; margin-bottom:0.4rem">[ Case Narrative ]</span>
+                <p style="font-size:0.92rem; line-height:1.65; white-space:pre-wrap; color:var(--text-primary)">${c.description}</p>
             </div>
 
             <!-- Metadata Details Grid -->
-            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:1rem; font-size:0.85rem; margin-bottom:1.5rem; padding:1rem; background:rgba(0,0,0,0.1); border-radius:var(--radius-sm); border:1px solid var(--border-subtle)">
-                <div><span style="color:var(--text-muted)">Category:</span> <strong style="color:var(--text-primary)">📁 ${c.category_name}</strong></div>
-                <div><span style="color:var(--text-muted)">Filing Student:</span> <strong style="color:var(--text-primary)">👤 ${c.student_name}</strong></div>
-                <div><span style="color:var(--text-muted)">Submitted On:</span> <strong style="color:var(--text-primary)">🕒 ${new Date(c.created_at).toLocaleString()}</strong></div>
-                <div><span style="color:var(--text-muted)">Assigned Staff:</span> <strong style="color:var(--text-primary)">👨‍💼 ${c.assigned_staff_name || 'Unassigned'}</strong></div>
+            <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:0.75rem; font-size:0.82rem; margin-bottom:1.5rem; padding:1rem; background:var(--bg-primary); border-radius:var(--radius-sm); border:1px solid var(--border-color)">
+                <div><span style="color:var(--text-muted); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em">Department Domain</span> <strong style="color:var(--text-primary)">${c.category_name}</strong></div>
+                <div><span style="color:var(--text-muted); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em">Reporting Student</span> <strong style="color:var(--text-primary)">${c.student_name}</strong></div>
+                <div><span style="color:var(--text-muted); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em">Registered On</span> <strong style="color:var(--text-primary)">${new Date(c.created_at).toLocaleDateString()}</strong></div>
+                <div><span style="color:var(--text-muted); display:block; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em">Assigned Investigator</span> <strong style="color:var(--text-primary)">${c.assigned_staff_name || 'Unassigned'}</strong></div>
             </div>
 
             ${isStaff ? `
-                <div style="background:rgba(99,102,241,0.08); border:1px solid rgba(99,102,241,0.25); border-radius:var(--radius-sm); padding:1.25rem; margin-bottom:1.5rem">
-                    <h4 style="color:var(--accent-indigo); margin-bottom:0.75rem">⚡ Staff Actions & Resolution Controls</h4>
+                <div style="background:var(--bg-primary); border:1px solid var(--border-color); border-radius:var(--radius-sm); padding:1.25rem; margin-bottom:1.5rem">
+                    <span style="font-size:0.72rem; text-transform:uppercase; letter-spacing:0.08em; color:var(--accent-editorial); font-weight:600; display:block; margin-bottom:0.6rem">[ Proctorial Investigation Controls ]</span>
                     <div style="display:flex; gap:0.75rem; flex-wrap:wrap">
                         <select id="updateStatusSelect" class="form-control" style="flex:1; min-width:180px">
-                            <option value="">Update Status...</option>
+                            <option value="">Select Milestone Status...</option>
                             <option value="UNDER_REVIEW">UNDER_REVIEW</option>
                             <option value="ASSIGNED">ASSIGNED</option>
                             <option value="IN_PROGRESS">IN_PROGRESS</option>
@@ -527,15 +530,15 @@ async function openDetailsModal(id) {
                             <option value="REJECTED">REJECTED</option>
                             <option value="CLOSED">CLOSED</option>
                         </select>
-                        <input id="updateRemarksInput" type="text" class="form-control" placeholder="Audit remarks / resolution summary..." style="flex:2; min-width:200px">
-                        <button class="btn btn-primary" onclick="handleStatusUpdate(${c.complaint_id})">Apply Status</button>
+                        <input id="updateRemarksInput" type="text" class="form-control" placeholder="Official remarks / audit findings..." style="flex:2; min-width:200px">
+                        <button class="btn btn-primary btn-sm" onclick="handleStatusUpdate(${c.complaint_id})">Apply Milestone →</button>
                     </div>
                 </div>
             ` : ''}
 
             <!-- Discussion & Activity Log -->
             <div class="comments-section">
-                <h4 style="margin-bottom:1rem; color:var(--text-primary)">💬 Discussion & Investigation Log (${(c.comments || []).length})</h4>
+                <h4 style="font-family:'Fraunces', serif; font-size:1.15rem; margin-bottom:0.85rem; color:var(--text-primary)">Investigation Notes & Communications (${(c.comments || []).length})</h4>
                 <div id="commentsList">
                     ${(c.comments && c.comments.length) ? c.comments.map(com => `
                         <div class="comment-item">
