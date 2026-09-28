@@ -2,63 +2,94 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
+const cookieParser = require("cookie-parser");
 
-const app = express();
-
-const PORT = process.env.PORT || 5000;
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-
-// Request logger middleware
-app.use((req, res, next) => {
-    const startTime = Date.now();
-
-    res.on("finish", () => {
-        const duration = Date.now() - startTime;
-
-        console.log(
-            `${req.method} ${req.originalUrl} - ${res.statusCode} - ${duration}ms`
-        );
-    });
-
-    next();
-});
-
-// Import routes
+const corsOptions = require("./config/corsOptions");
+const { apiLimiter, authLimiter } = require("./middleware/rateLimiter");
+const requestLogger = require("./middleware/requestLogger");
+const errorHandler = require("./middleware/errorHandler");
+const Logger = require("./utils/logger");
 const routes = require("./routes");
 
-// Use routes
-app.use("/api", routes);
+const app = express();
+const PORT = process.env.PORT || 5000;
 
-// Serve frontend files
+// ==============================================================================
+// 1. SECURITY & UTILITY MIDDLEWARES (Week 8)
+// ==============================================================================
+
+// Helmet: Sets critical HTTP response headers to protect against common web vulnerabilities
+app.use(helmet({
+    contentSecurityPolicy: false, // Allows inline scripts for testing and public demo pages
+    crossOriginEmbedderPolicy: false
+}));
+
+// CORS: Configures Cross-Origin Resource Sharing with allowed origins and credentials
+app.use(cors(corsOptions));
+
+// Cookie Parser: Parses cookies attached to client requests (for session/JWT auth in Week 7)
+app.use(cookieParser(process.env.COOKIE_SECRET));
+
+// Body Parsing: Protects against large payloads with size limits
+app.use(express.json({ limit: "1mb" }));
+app.use(express.urlencoded({ extended: true, limit: "1mb" }));
+
+// Request Logging: Structured HTTP request logger with file & console outputs
+app.use(requestLogger);
+
+// Rate Limiting: Global limiter for all /api endpoints, plus strict limiter for /api/auth
+app.use("/api", apiLimiter);
+app.use("/api/auth/login", authLimiter);
+app.use("/api/auth/register", authLimiter);
+
+// ==============================================================================
+// 2. STATIC FILES & API ROUTES
+// ==============================================================================
+
+// Static files for frontend preview
 app.use(express.static("public"));
 
-// 404 handler
+// Mount main API router
+app.use("/api", routes);
+
+// Root path fallback
+app.get("/", (req, res) => {
+    res.json({
+        success: true,
+        message: "Welcome to College Complaint Management System API",
+        docs: "/api",
+        status: "ACTIVE"
+    });
+});
+
+// ==============================================================================
+// 3. ERROR HANDLING & 404 (Week 4, 8)
+// ==============================================================================
+
+// 404 Route Not Found Handler
 app.use((req, res) => {
     res.status(404).json({
         success: false,
-        message: "Route not found"
+        message: `Route not found: ${req.method} ${req.originalUrl}`
     });
 });
 
-// Error handling middleware
-app.use((err, req, res, next) => {
-    console.error("ERROR:", err);
+// Centralized Error Handling Middleware
+app.use(errorHandler);
 
-    res.status(err.status || 500).json({
-        success: false,
-        message: err.message || "Internal server error"
+// ==============================================================================
+// 4. SERVER INITIALIZATION
+// ==============================================================================
+if (require.main === module) {
+    app.listen(PORT, () => {
+        Logger.info("--------------------------------------------------");
+        Logger.info("College Complaint Management System Server Started");
+        Logger.info(`Local URL: http://localhost:${PORT}`);
+        Logger.info(`API Base:  http://localhost:${PORT}/api`);
+        Logger.info("Milestones active: Week 1 to Week 8");
+        Logger.info("--------------------------------------------------");
     });
-});
+}
 
-// Start server
-app.listen(PORT, () => {
-    console.log("----------------------------------------");
-    console.log("College Complaint Management System");
-    console.log("----------------------------------------");
-    console.log(`Server running at http://localhost:${PORT}`);
-    console.log("Week 1-5 backend is ready.");
-});
+module.exports = app;
