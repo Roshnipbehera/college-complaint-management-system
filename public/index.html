@@ -29,9 +29,12 @@
                 </ul>
             </nav>
 
-            <div class="nav-actions" id="userNavSection">
-                <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
-                <button class="btn btn-primary btn-sm" onclick="openAuthModal('register')">Register</button>
+            <div class="nav-actions">
+                <button id="themeToggleBtn" class="theme-toggle-btn" title="Toggle Light/Dark Theme" onclick="toggleTheme()">☀️</button>
+                <div id="userNavSection" style="display:flex; align-items:center; gap:0.75rem">
+                    <button class="btn btn-secondary btn-sm" onclick="openAuthModal('login')">Sign In</button>
+                    <button class="btn btn-primary btn-sm" onclick="openAuthModal('register')">Register</button>
+                </div>
             </div>
         </div>
     </header>
@@ -47,11 +50,26 @@
                     <h1 class="hero-title">Campus Grievance Dashboard</h1>
                     <p class="hero-subtitle">Track, investigate, and resolve student complaints with end-to-end transparency.</p>
                 </div>
-                <div>
+                <div style="display:flex; gap:0.75rem; flex-wrap:wrap">
+                    <button class="btn btn-secondary" onclick="loadComplaints()" title="Reload latest complaints">
+                        <span>🔄</span> Refresh
+                    </button>
                     <button class="btn btn-primary" onclick="state.user ? switchTab('new') : openAuthModal('login')">
                         <span>＋</span> File New Complaint
                     </button>
                 </div>
+            </div>
+
+            <!-- Instant Complaint Tracker Banner -->
+            <div class="tracking-banner">
+                <div class="tracking-info">
+                    <h4>⚡ Track Grievance Status Instantly</h4>
+                    <p>Have a reference code? Enter your tracking ID (e.g. <code>CMP-2026-0001</code>) to view the full resolution timeline.</p>
+                </div>
+                <form class="tracking-form" onsubmit="handleQuickTrack(event)">
+                    <input type="text" id="quickTrackInput" class="tracking-input" placeholder="Enter CMP-YYYY-XXXX" required>
+                    <button type="submit" class="btn btn-primary btn-sm">Track</button>
+                </form>
             </div>
 
             <!-- Stats Row -->
@@ -86,36 +104,49 @@
                 </div>
             </div>
 
-            <!-- Search & Filters Control Bar -->
+            <!-- Search & Filters Control Bar with Quick Status Pills -->
             <div class="controls-bar">
-                <div class="search-box">
-                    <span class="search-icon">🔍</span>
-                    <input type="text" id="searchInput" class="search-input" placeholder="Search by title, description or code...">
+                <div class="controls-row-top">
+                    <div class="search-box">
+                        <span class="search-icon">🔍</span>
+                        <input type="text" id="searchInput" class="search-input" placeholder="Search by title, description or code...">
+                    </div>
+
+                    <div class="filters-group">
+                        <select id="filterStatus" class="filter-select">
+                            <option value="">All Statuses</option>
+                            <option value="SUBMITTED">Submitted</option>
+                            <option value="UNDER_REVIEW">Under Review</option>
+                            <option value="ASSIGNED">Assigned</option>
+                            <option value="IN_PROGRESS">In Progress</option>
+                            <option value="RESOLVED">Resolved</option>
+                            <option value="CLOSED">Closed</option>
+                            <option value="REJECTED">Rejected</option>
+                        </select>
+
+                        <select id="filterCategory" class="filter-select">
+                            <option value="">All Categories</option>
+                        </select>
+
+                        <select id="filterPriority" class="filter-select">
+                            <option value="">All Priorities</option>
+                            <option value="LOW">Low</option>
+                            <option value="MEDIUM">Medium</option>
+                            <option value="HIGH">High</option>
+                            <option value="URGENT">Urgent</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="filters-group">
-                    <select id="filterStatus" class="filter-select">
-                        <option value="">All Statuses</option>
-                        <option value="SUBMITTED">Submitted</option>
-                        <option value="UNDER_REVIEW">Under Review</option>
-                        <option value="ASSIGNED">Assigned</option>
-                        <option value="IN_PROGRESS">In Progress</option>
-                        <option value="RESOLVED">Resolved</option>
-                        <option value="CLOSED">Closed</option>
-                        <option value="REJECTED">Rejected</option>
-                    </select>
-
-                    <select id="filterCategory" class="filter-select">
-                        <option value="">All Categories</option>
-                    </select>
-
-                    <select id="filterPriority" class="filter-select">
-                        <option value="">All Priorities</option>
-                        <option value="LOW">Low</option>
-                        <option value="MEDIUM">Medium</option>
-                        <option value="HIGH">High</option>
-                        <option value="URGENT">Urgent</option>
-                    </select>
+                <!-- Status Filter Pills -->
+                <div class="filter-pills-bar" id="statusPillsBar">
+                    <button type="button" class="pill-btn active" onclick="handlePillFilter('')">All Grievances</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('SUBMITTED')">⏳ Submitted</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('UNDER_REVIEW')">🔍 Under Review</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('ASSIGNED')">👨‍💼 Assigned</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('IN_PROGRESS')">⚙️ In Progress</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('RESOLVED')">✅ Resolved</button>
+                    <button type="button" class="pill-btn" onclick="handlePillFilter('CLOSED')">🔒 Closed</button>
                 </div>
             </div>
 
@@ -352,7 +383,10 @@
         <div class="modal-box" style="max-width:750px">
             <div class="modal-header">
                 <h3 class="modal-title">Complaint Inspection</h3>
-                <button class="modal-close" onclick="closeDetailsModal()">✕</button>
+                <div style="display:flex; align-items:center; gap:0.5rem">
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="window.print()" title="Print Grievance Voucher">🖨️ Print Receipt</button>
+                    <button class="modal-close" onclick="closeDetailsModal()">✕</button>
+                </div>
             </div>
             <div id="detailsModalBody" class="modal-body"></div>
         </div>
