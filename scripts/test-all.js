@@ -7,7 +7,8 @@ console.log("===================================================================
 const suites = [
     { name: "Week 6: CRUD APIs, Queries & Filtering", cmd: "node scripts/test-week6.js" },
     { name: "Week 7: Authentication, Bcrypt & Sessions/Cookies", cmd: "node scripts/test-week7.js" },
-    { name: "Week 8: CORS, Security, Validation & Logging", cmd: "node scripts/test-week8.js" }
+    { name: "Week 8: CORS, Security, Validation & Logging", cmd: "node scripts/test-week8.js" },
+    { name: "Week 9: Full End-to-End Frontend-Backend Integration", cmd: "node scripts/test-week9-integration.js" }
 ];
 
 let allPassed = true;
@@ -26,7 +27,7 @@ for (const suite of suites) {
 
 console.log("================================================================================");
 if (allPassed) {
-    console.log("ALL TEST SUITES (WEEKS 6, 7 & 8) PASSED SUCCESSFULLY! (100% PASS RATE)");
+    console.log("ALL TEST SUITES (WEEKS 6, 7, 8 & 9) PASSED SUCCESSFULLY! (100% PASS RATE)");
 } else {
     console.error("SOME TEST SUITES FAILED.");
 }

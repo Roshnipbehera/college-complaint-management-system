@@ -10,6 +10,7 @@
     "test:week6": "node scripts/test-week6.js",
     "test:week7": "node scripts/test-week7.js",
     "test:week8": "node scripts/test-week8.js",
+    "test:week9": "node scripts/test-week9-integration.js",
     "test": "node scripts/test-all.js"
   },
   "dependencies": {
