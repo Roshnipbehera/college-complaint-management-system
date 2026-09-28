@@ -9,7 +9,7 @@ const state = {
     categories: [],
     complaints: [],
     stats: { total: 0, submitted: 0, progress: 0, resolved: 0 },
-    currentView: 'dashboard',
+    currentView: 'home',
     activeFilters: {
         status: '',
         category_id: '',
@@ -316,11 +316,13 @@ function renderComplaints() {
 }
 
 // ==============================================================================
-// Instant Complaint Tracker
+// Instant Grievance Tracker
 // ==============================================================================
 async function handleQuickTrack(e) {
     if (e) e.preventDefault();
-    const input = document.getElementById('quickTrackInput');
+    const homeInput = document.getElementById('homeQuickTrackInput');
+    const dashInput = document.getElementById('quickTrackInput');
+    const input = (homeInput && homeInput.value.trim()) ? homeInput : dashInput;
     const code = input ? input.value.trim().toUpperCase() : '';
     if (!code) return;
 
@@ -330,7 +332,8 @@ async function handleQuickTrack(e) {
     const localMatch = state.complaints.find(c => c.complaint_code && c.complaint_code.toUpperCase() === code);
     if (localMatch) {
         openDetailsModal(localMatch.complaint_id);
-        input.value = '';
+        if (homeInput) homeInput.value = '';
+        if (dashInput) dashInput.value = '';
         return;
     }
 
@@ -342,13 +345,40 @@ async function handleQuickTrack(e) {
 
         if (exactMatch) {
             openDetailsModal(exactMatch.complaint_id);
-            input.value = '';
+            if (homeInput) homeInput.value = '';
+            if (dashInput) dashInput.value = '';
         } else {
-            showToast(`No complaint found with tracking code "${code}"`, 'error');
+            showToast(`No grievance found with tracking code "${code}"`, 'error');
         }
     } catch (err) {
         showToast(`Tracking lookup failed: ${err.message}`, 'error');
     }
+}
+
+// Quick Department Filtering from Homepage Cards
+function filterByCategoryName(keyword) {
+    const match = state.categories.find(c => c.category_name.toLowerCase().includes(keyword.toLowerCase()));
+    if (match) {
+        state.activeFilters.category_id = match.category_id;
+        const filterCat = document.getElementById('filterCategory');
+        if (filterCat) filterCat.value = match.category_id;
+    } else {
+        state.activeFilters.search = keyword;
+        const searchInput = document.getElementById('searchInput');
+        if (searchInput) searchInput.value = keyword;
+    }
+    switchTab('dashboard');
+    loadComplaints();
+}
+
+// Staff Triage Shortcut
+function filterByStaffTriage() {
+    state.activeFilters.status = 'ASSIGNED';
+    const filterStatus = document.getElementById('filterStatus');
+    if (filterStatus) filterStatus.value = 'ASSIGNED';
+    syncPillsUI('ASSIGNED');
+    switchTab('dashboard');
+    loadComplaints();
 }
 
 // ==============================================================================
@@ -626,6 +656,7 @@ function switchTab(tabName) {
     if (navItem) navItem.classList.add('active');
 
     state.currentView = tabName;
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 function setupEventListeners() {
