@@ -9,17 +9,34 @@ async function seed() {
     console.log("Seeding College Complaint Management Database...");
     console.log("==================================================");
 
-    const connection = await mysql.createConnection({
+    const connectionUri = process.env.DATABASE_URL || process.env.MYSQL_URL;
+
+    const connectionConfig = connectionUri ? {
+        uri: connectionUri,
+        multipleStatements: true,
+        ssl: process.env.DB_SSL === "true" || (!connectionUri.includes("localhost") && process.env.DB_SSL !== "false")
+            ? { rejectUnauthorized: false }
+            : undefined
+    } : {
         host: process.env.DB_HOST || "localhost",
         user: process.env.DB_USER || "root",
         password: process.env.DB_PASSWORD || "",
         port: Number(process.env.DB_PORT || 3306),
-        multipleStatements: true
-    });
+        database: process.env.DB_NAME || undefined,
+        multipleStatements: true,
+        ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined
+    };
+
+    const connection = await mysql.createConnection(connectionConfig);
 
     try {
-        await connection.query("CREATE DATABASE IF NOT EXISTS college_complaint_management;");
-        await connection.query("USE college_complaint_management;");
+        const targetDb = process.env.DB_NAME || "college_complaint_management";
+        try {
+            await connection.query(`CREATE DATABASE IF NOT EXISTS \`${targetDb}\`;`);
+            await connection.query(`USE \`${targetDb}\`;`);
+        } catch (dbErr) {
+            console.log(`Notice: Using default cloud database (${dbErr.message})`);
+        }
 
         // Hash demo passwords
         const studentHash = await bcrypt.hash("Student@123", 10);
@@ -29,6 +46,10 @@ async function seed() {
         // Read schema
         const schemaPath = path.join(__dirname, "../database/schema.sql");
         let sql = fs.readFileSync(schemaPath, "utf8");
+
+        // Strip database creation/switch in case cloud provider uses a managed DB name
+        sql = sql.replace(/CREATE DATABASE[^\n;]+;/gi, "");
+        sql = sql.replace(/USE [^\n;]+;/gi, "");
 
         // Replace dummy hashes with generated bcrypt hashes if needed
         sql = sql.replace("'$2b$10$FsVUFQC1te5Db7xMOy4yiej2JjSzf.rnbk8AxXZJoVQ0iCK0IgcYa'", `'${studentHash}'`);

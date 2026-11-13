@@ -1,0 +1,27 @@
+services:
+  - type: web
+    name: college-complaint-management-system
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: node server.js
+    healthCheckPath: /api
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: JWT_SECRET
+        generateValue: true
+      - key: COOKIE_SECRET
+        generateValue: true
+      - key: DB_HOST
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_NAME
+        value: college_complaint_management
+      - key: DB_PORT
+        value: 3306
+      - key: DB_SSL
+        value: "true"

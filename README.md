@@ -83,8 +83,11 @@ A production-grade Node.js, Express, and MySQL backend system for managing stude
 - **End-to-End Integration Testing**: Complete 10-step student-to-staff grievance resolution lifecycle tested via `scripts/test-week9-integration.js`.
 - **Documentation**: Full report in [`docs/FRONTEND_INTEGRATION_WEEK9.md`](docs/FRONTEND_INTEGRATION_WEEK9.md).
 
-### 🔮 Future Milestones
-- **Week 10**: Cloud Deployment & Final Demonstration
+### ✅ Week 10: Cloud Deployment & Containerization
+- **Dockerization**: Production-ready `Dockerfile` and `docker-compose.yml` orchestrating both Node.js Express server and MySQL 8.0.
+- **Cloud Database Support**: Dynamic database connection pooling supporting `DATABASE_URL` / `MYSQL_URL` connection strings and managed cloud SSL.
+- **One-Click Deployments**: Configured `render.yaml` Blueprint for Render and full integration for Railway.
+- **Documentation**: Comprehensive step-by-step deployment guide in [`docs/DEPLOYMENT_GUIDE.md`](docs/DEPLOYMENT_GUIDE.md).
 
 ---
 
