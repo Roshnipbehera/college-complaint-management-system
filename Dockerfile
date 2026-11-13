@@ -15,3 +15,4 @@ EXPOSE 5000
 
 # Start application
 CMD ["node", "server.js"]
+

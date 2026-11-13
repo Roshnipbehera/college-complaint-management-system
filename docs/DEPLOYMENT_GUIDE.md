@@ -95,3 +95,4 @@ docker compose up -d
 docker compose exec web npm run seed
 ```
 The app will be available at `http://<server-ip>:5000`.
+
