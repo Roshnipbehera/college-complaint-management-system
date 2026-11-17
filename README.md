@@ -2,11 +2,11 @@
 
 A production-grade Node.js, Express, and MySQL backend system for managing student complaints, tracking grievance lifecycles, and enabling administrative triage in educational institutions.
 
-[![Live Demo](https://img.shields.io/badge/Live_Demo-Active_Cloudflare_HTTPS-2ea44f?style=for-the-badge&logo=cloudflare)](https://contractor-myrtle-passive-virgin.trycloudflare.com)
-[![API Status](https://img.shields.io/badge/API-RESTful_v2.0-blue?style=for-the-badge)](https://contractor-myrtle-passive-virgin.trycloudflare.com/api)
+[![Live Demo](https://img.shields.io/badge/Live_Demo-Active_Cloudflare_HTTPS-2ea44f?style=for-the-badge&logo=cloudflare)](https://los-score-loaded-skating.trycloudflare.com)
+[![API Status](https://img.shields.io/badge/API-RESTful_v2.0-blue?style=for-the-badge)](https://los-score-loaded-skating.trycloudflare.com/api)
 
-> 🌐 **Live Public Application**: [https://contractor-myrtle-passive-virgin.trycloudflare.com](https://contractor-myrtle-passive-virgin.trycloudflare.com)  
-> 📑 **API Base & Documentation**: [https://contractor-myrtle-passive-virgin.trycloudflare.com/api](https://contractor-myrtle-passive-virgin.trycloudflare.com/api)  
+> 🌐 **Live Public Application**: [https://los-score-loaded-skating.trycloudflare.com](https://los-score-loaded-skating.trycloudflare.com)  
+> 📑 **API Base & Documentation**: [https://los-score-loaded-skating.trycloudflare.com/api](https://los-score-loaded-skating.trycloudflare.com/api)  
 > 🔑 **Demo Accounts (Instant One-Click Login on UI)**:
 > - **Student**: `student@college.com` / `Student@123`
 > - **Staff**: `staff@college.com` / `Staff@123`
@@ -94,7 +94,7 @@ A production-grade Node.js, Express, and MySQL backend system for managing stude
 - **Documentation**: Full report in [`docs/FRONTEND_INTEGRATION_WEEK9.md`](docs/FRONTEND_INTEGRATION_WEEK9.md).
 
 ### ✅ Week 10: Cloud Deployment & Containerization
-- **Live Public Cloud Tunnel**: Deployed on Cloudflare Edge with active HTTPS at [`https://contractor-myrtle-passive-virgin.trycloudflare.com`](https://contractor-myrtle-passive-virgin.trycloudflare.com).
+- **Live Public Cloud Tunnel**: Deployed on Cloudflare Edge with active HTTPS at [`https://los-score-loaded-skating.trycloudflare.com`](https://los-score-loaded-skating.trycloudflare.com).
 - **Dockerization**: Production-ready `Dockerfile` and `docker-compose.yml` orchestrating both Node.js Express server and MySQL 8.0.
 - **Cloud Database Support**: Dynamic database connection pooling supporting `DATABASE_URL` / `MYSQL_URL` connection strings and managed cloud SSL.
 - **One-Click Deployments**: Configured `render.yaml` Blueprint for Render and full integration for Railway.
